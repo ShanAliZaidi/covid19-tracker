@@ -1,0 +1,26 @@
+name: Deploy Website
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Deploying to surge
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Node.js
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: 12
+      - name: GITHUB ACTION FOR YARN
+        uses: Borales/actions-yarn@v2.3.0
+        with:
+          cmd: install
+      - name: build react app
+        run: yarn build
+      - name: Install Surge
+        run: npm install -g surge
+      - name: Run surge
+        run: surge ./build sa06.covid19.surge.sh --token ${{ secrets.NEWTOKEN }}
+
+          
