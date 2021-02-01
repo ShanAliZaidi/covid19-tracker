@@ -47,22 +47,18 @@ export default function InfoCard() {
   const [countries,setCountries] = useState([{}])
 
   useEffect(() => {
-    async function myfunc() {
-      const resp = await  fetch("https://corona.lmao.ninja/v2/countries/")
-      const newdata = await resp.json()
-      setCountries(newdata)
-    }
-    myfunc()
-  },[])
-
-  useEffect(() => {
     async function getData() {
         const response = await fetch("https://corona.lmao.ninja/v2/all");
         let data = await response.json();
-
         setGlobalData(data);
     }
     getData();
+    async function myfunc() {
+      const resp = await  fetch("https://corona.lmao.ninja/v2/countries/");
+      let newdata = await resp.json();
+      setCountries(newdata);
+    }
+    myfunc()
 }, [])
 
   const handleChange = (e) => {
